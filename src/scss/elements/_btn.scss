@@ -1,0 +1,26 @@
+.btn {
+  margin-top: 2rem;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+  width: 80%;
+  height: 3rem;
+  text-decoration: none;
+  background: #FFF;
+  border: 1px solid $accent-blue;
+  border-radius: 2rem;
+  color: $accent-blue;
+  text-transform: uppercase;
+  font-size: 1rem;
+  transition: 0.8s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media #{$media-desktop} {
+    font-size: 1.2rem;
+    margin-top: 4rem;
+  }
+
+  &:hover {
+    background: $accent-blue;
+    color: $light-background;
+  }
+}

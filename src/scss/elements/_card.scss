@@ -1,0 +1,40 @@
+.card__details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 10rem;
+  padding: 2rem;
+  margin: 1rem 0;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid $text-inactive;
+  border-radius: 1rem;
+  @media #{$media-tablet} {
+    width: 45%;
+    margin: 1rem 0;
+  }
+  @media #{$media-desktop} {
+    width: 30%;
+    margin: 2rem 0;
+  }
+
+  h2 {
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+
+    span {
+      font-weight: 600;
+    }
+  }
+
+  h3 {
+    font-weight: 400;
+    text-align: center;
+    font-size: 1rem;
+
+    span {
+      font-weight: 600;
+    }
+  }
+}

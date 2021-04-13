@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: $font-base;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: $light-background;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $accent-blue;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $text-inactive;
+}
