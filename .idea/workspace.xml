@@ -2,24 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0643f9f2-17d4-4beb-868a-f70cdaa772d6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/LogIn.test.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/organisms/Error.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scss/elements/_error.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/API.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/organisms/SingleCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/organisms/SingleCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/LogIn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/LogIn.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Post.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Post.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Wall.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Wall.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/randomNames.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/randomNames.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scss/elements/_all.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/elements/_all.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scss/elements/_card.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/elements/_card.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scss/elements/_log.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/elements/_log.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scss/elements/_wall.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/elements/_wall.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogIn.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/__tests__/LogIn.test.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,9 +17,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="SCSS File" />
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
         <option value="JavaScript File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -60,6 +47,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Julka\Desktop\post-your-thought\src\__tests__" />
       <recent name="C:\Users\Julka\Desktop\post-your-thought\src" />
     </key>
   </component>
@@ -73,7 +61,7 @@
       <updated>1617951665455</updated>
       <workItem from="1617951667780" duration="55171000" />
       <workItem from="1618382263490" duration="26962000" />
-      <workItem from="1618470300907" duration="31702000" />
+      <workItem from="1618470300907" duration="35006000" />
     </task>
     <servers />
   </component>
