@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import HeaderTitle from "../molecules/HeaderTitle";
-import {fetchPosts} from "../../API";
-import Btn from "../atoms/Btn";
 import SingleCard from "../organisms/SingleCard";
+import Error from "../organisms/Error";
 
 type PostObject = {
     id: number;
@@ -11,41 +10,100 @@ type PostObject = {
     body: string;
 }
 
-function Wall() {
-    const [fetchedPosts, setFetchedPosts] = useState<PostObject[]>([]);
-    const [posts, setPosts] = useState<PostObject[]>([]);
+type Props = {
+    logFunc: Function;
+}
 
-    const fetchPosts = async () => {
-        const url = `https://jsonplaceholder.typicode.com/posts`;
-        const data = await (await fetch(url)).json();
-        setFetchedPosts(data);
+const Wall: React.FC<Props> = ({logFunc}) => {
+    const [posts, setPosts] = useState<PostObject[]>([]);
+    const [search, setSearch] = useState<string>("");
+    const [fetchStatus, setFetchStatus] = useState<string>("");
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value);
     }
 
-    console.log(fetchedPosts);
+    const loggingOut = () => {
+        logFunc(false);
+        sessionStorage.clear();
+    }
 
     useEffect(() => {
-        fetchPosts();
-        const interval = setInterval(fetchedPosts.reverse, 1000);
-    }, [fetchedPosts.length]);
+        const err = new AbortController();
+        const signal = err.signal;
+        let interval: NodeJS.Timeout;
+
+        const fetchPosts = async () => {
+            const url = `https://jsonplaceholder.typicode.com/posts/`;
+            const resp = await fetch(url, {signal: signal});
+            const data = resp.json();
+
+            if (!resp.ok) {
+                setFetchStatus(`Something went wrong. Error ${resp.status}`);
+            } else {
+                setFetchStatus("");
+            }
+
+            return data;
+        }
+
+        fetchPosts().then((data) => {
+            if (data.length) {
+                const order = data.sort((a: any, b: any) => b.id - a.id);
+                let count: number = 0;
+                interval = setInterval(() => {
+                    if (count < order.length) {
+                        setPosts(order.slice(0, count));
+                        count++;
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 1000);
+            }
+        });
+
+        return () => {
+            err.abort();
+            clearInterval(interval);
+        };
+    }, []);
 
     return (
         <div className="wall">
             <HeaderTitle/>
             <div className="wall__actions">
-                <Btn directory={"/log"} text={"Log out"}/>
+                <button
+                    className="btn"
+                    onClick={loggingOut}
+                >
+                    Log out
+                </button>
                 <input
                     className="form__control"
+                    type="text"
                     placeholder="search"
+                    onChange={handleSearch}
                 />
             </div>
-            <div className="wall__content">
-                {fetchedPosts.reverse().map(el =>
-                    <SingleCard
-                        userId={el.userId}
-                        title={el.title}
-                    />)
-                }
-            </div>
+            {fetchStatus ? <Error error={fetchStatus}/> : (
+                <>
+                    <div className="wall__content">
+                        {posts.filter(({body, title}) => {
+                            return (
+                                String(body).includes(search.trim()) ||
+                                String(title).includes(search.trim())
+                            );
+                        })
+                            .map(({id, userId, title, body}) =>
+                                <SingleCard
+                                    body={body}
+                                    id={id}
+                                    userId={userId}
+                                    title={title}
+                                />
+                            )}
+                    </div>
+                </>)}
         </div>
     );
 }

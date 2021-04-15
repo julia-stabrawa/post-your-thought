@@ -1,67 +1,70 @@
 import React, {useState} from 'react';
 import Validation from "../atoms/Validation";
 import HeaderTitle from "../molecules/HeaderTitle";
-import Btn from "../atoms/Btn";
 
+export type Props = {
+    logFunc: Function;
+}
 
-function LogIn() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [errorPassword, setErrorPassword] = useState("none");
-    const [errorEmail, setErrorEmail] = useState("none");
-    const [success, setSuccess] = useState("none");
+const LogIn: React.FC<Props> = ({logFunc}) => {
+    const [name, setName] = useState<any>("");
+    const [password, setPassword] = useState<any>("");
+    const [errorPassword, setErrorPassword] = useState<string>("none");
+    const [errorName, setErrorName] = useState<string>("none");
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     if (email !== "" && password !== "") {
-    //         setSuccess("block");
-    //         setErrorPassword("none");
-    //         setErrorEmail("none");
-    //     } else if (email === "") {
-    //         setErrorEmail("block");
-    //     } else if (password === "") {
-    //         setErrorPassword("block");
-    //     }
-    // }
-    // const passwordCheck = (el) => {
-    //     if (el.length > 6) {
-    //         setPassword(el);
-    //     }
-    // }
-    // const emailCheck = (el) => {
-    //     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    //     if (re.test(el)) {
-    //         setEmail(el);
-    //     }
-    // }
+    const handleSubmit = (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+        if (name === "") {
+            setErrorName("block");
+        } else if (password === "") {
+            setErrorPassword("block");
+        } else {
+            sessionStorage.setItem("user", `{name: ${name}, password: ${password}`);
+            logFunc(true);
+        }
+    }
 
+    const passwordCheck = (pass: any) => {
+        const re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+        if (re.test(pass)) {
+            setPassword(pass);
+            setErrorPassword("none");
+        }else{
+            setErrorPassword("block");
+        }
+    }
+
+    const nameCheck = (username: any) => {
+        const re = /^[a-zA-Z]{5,}$/;
+        if (re.test(username)) {
+            setName(username);
+            setErrorName("none");
+        }else{
+            setErrorName("block");
+        }
+    }
 
     return (
         <div className="log">
             <HeaderTitle/>
             <div className="log__action-cnt">
                 <h2>Log in</h2>
-                <Validation
-                    display={success}
-                    color={"green"}
-                    text={"Successfully logged in!"}
-                />
                 <div className="contact__form">
                     <form className="form">
                         <div className="form__info">
                             <div className="form-row">
-                                <label htmlFor="email" className="label__txt">E-mail</label>
+                                <label htmlFor="name" className="label__txt">Username</label>
                                 <input
-                                    id="email"
-                                    name="email"
+                                    id="name"
+                                    name="name"
                                     type="text"
                                     className="form-input"
-                                    // onChange={(e) => emailCheck(e.target.value)}
+                                    onChange={(e) => nameCheck(e.target.value)}
                                 />
                                 <Validation
-                                    display={errorEmail}
+                                    display={errorName}
                                     color={"red"}
-                                    text={"Email is incorrect!"}
+                                    text={"Username is too short!"}
                                 />
                             </div>
                             <div className="form-row">
@@ -71,12 +74,16 @@ function LogIn() {
                                     name="password"
                                     type="password"
                                     className="form-input"
-                                    // onChange={(e) => passwordCheck(e.target.value)}
+                                    onChange={(e) => passwordCheck(e.target.value)}
                                 />
                                 <Validation
                                     display={errorPassword}
                                     color={"red"}
-                                    text={"Password is too short!"}
+                                    text={"Password has to contain " +
+                                    "8 characters, " +
+                                    "at least one small letter, " +
+                                    "at least one capital letter, " +
+                                    "at least one number"}
                                 />
                             </div>
                         </div>
@@ -84,6 +91,7 @@ function LogIn() {
                             <button
                                 type="submit"
                                 className="btn"
+                                onClick={(event: React.MouseEvent<HTMLElement>) => handleSubmit(event)}
                             >
                                 Log in
                             </button>

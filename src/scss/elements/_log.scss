@@ -46,6 +46,12 @@
             flex-direction: column;
             width: 70%;
 
+            input {
+              &:focus {
+                outline: none;
+              }
+            }
+
             .label__txt {
               font-size: 1rem;
               font-weight: 400;
