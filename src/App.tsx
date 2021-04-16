@@ -30,7 +30,7 @@ function App() {
                 </Route>
                 <Route path="/">
                     {!loggedIn ?
-                        <LogIn logFunc={logInFunc}/>
+                        <LogIn logFunc={logInFunc} submitChange={(username, password) => {}} passwordChange={password => ""} usernameChange={username => ""}/>
                         :
                         <Wall logFunc={logInFunc}/>
                     }

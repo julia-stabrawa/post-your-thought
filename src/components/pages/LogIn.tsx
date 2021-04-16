@@ -3,24 +3,28 @@ import Validation from "../atoms/Validation";
 import HeaderTitle from "../molecules/HeaderTitle";
 
 export type Props = {
-    logFunc: Function;
+    logFunc: (result: boolean) => void;
+    usernameChange: (username: string) => void;
+    passwordChange: (password: string) => void;
+    submitChange: (username: string, password: string) => void;
 }
 
-const LogIn: React.FC<Props> = ({logFunc}) => {
-    const [name, setName] = useState<any>("");
-    const [password, setPassword] = useState<any>("");
+const LogIn: React.FC<Props> = ({logFunc, usernameChange, passwordChange, submitChange}) => {
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     const [errorPassword, setErrorPassword] = useState<string>("none");
     const [errorName, setErrorName] = useState<string>("none");
 
     const handleSubmit = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
-        if (name === "") {
+        if (username === "") {
             setErrorName("block");
         } else if (password === "") {
             setErrorPassword("block");
         } else {
-            sessionStorage.setItem("user", `{name: ${name}, password: ${password}`);
+            sessionStorage.setItem("user", `{name: ${username}, password: ${password}`);
             logFunc(true);
+            submitChange(username, password);
         }
     }
 
@@ -28,6 +32,7 @@ const LogIn: React.FC<Props> = ({logFunc}) => {
         const re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
         if (re.test(pass)) {
             setPassword(pass);
+            passwordChange(pass);
             setErrorPassword("none");
         }else{
             setErrorPassword("block");
@@ -37,7 +42,8 @@ const LogIn: React.FC<Props> = ({logFunc}) => {
     const nameCheck = (username: any) => {
         const re = /^[a-zA-Z]{5,}$/;
         if (re.test(username)) {
-            setName(username);
+            setUsername(username);
+            usernameChange(username)
             setErrorName("none");
         }else{
             setErrorName("block");
@@ -51,14 +57,15 @@ const LogIn: React.FC<Props> = ({logFunc}) => {
                 <h2>Log in</h2>
                 <div className="contact__form">
                     <form className="form">
-                        <div className="form__info">
+                        <div className="form__info" data-testid="login-form">
                             <div className="form-row">
                                 <label htmlFor="name" className="label__txt">Username</label>
                                 <input
-                                    id="name"
-                                    name="name"
+                                    id="username"
+                                    name="username"
                                     type="text"
                                     className="form-input"
+                                    data-testid="username"
                                     onChange={(e) => nameCheck(e.target.value)}
                                 />
                                 <Validation
@@ -74,6 +81,7 @@ const LogIn: React.FC<Props> = ({logFunc}) => {
                                     name="password"
                                     type="password"
                                     className="form-input"
+                                    data-testid="password"
                                     onChange={(e) => passwordCheck(e.target.value)}
                                 />
                                 <Validation
@@ -91,6 +99,7 @@ const LogIn: React.FC<Props> = ({logFunc}) => {
                             <button
                                 type="submit"
                                 className="btn"
+                                data-testid="submit"
                                 onClick={(event: React.MouseEvent<HTMLElement>) => handleSubmit(event)}
                             >
                                 Log in
