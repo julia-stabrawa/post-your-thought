@@ -7,7 +7,7 @@ If I had more time to improve the app I would:
 - create more unit tests
 - create backend authentication using Firebase
 - improve the design of the app
-- add with possibility to add posts to existing wall
+- add possibility to add posts to existing wall
 
 https://post-your-thought.herokuapp.com/
 
